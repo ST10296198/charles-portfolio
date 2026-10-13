@@ -1,0 +1,25 @@
+:root {
+  --bg: #eef0f5;
+  --bg-soft: #f6f7fa;
+
+  --surface: rgba(255, 255, 255, 0.64);
+  --surface-strong: #ffffff;
+
+  --text: #101116;
+  --text-soft: #686b76;
+
+  --indigo: #6878e8;
+  --indigo-light: #aebaff;
+  --indigo-pale: #dde3ff;
+
+  --border: rgba(16, 17, 22, 0.1);
+
+  --radius-sm: 18px;
+  --radius-md: 28px;
+  --radius-lg: 44px;
+  --radius-pill: 999px;
+
+  --page-padding: clamp(20px, 3vw, 52px);
+
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
