@@ -3,7 +3,7 @@
 **Project:** `charles-portfolio`  
 **Environment:** Windows, Visual Studio Code, React/Vite local development  
 **Last planning update:** 2026-10-13  
-**Status:** Read-only source audit and pre-upload fixes completed on 2026-10-13. Production build and lint pass with existing warnings; Contact and Agri case-study runtime smoke checks passed at a 390px viewport. GitHub repository creation and upload are pending the user's visibility choice. Full visual QA remains pending.
+**Status:** Public baseline published to `https://github.com/ST10296198/charles-portfolio` on 2026-10-13. Production build and lint pass with existing warnings; Contact and Agri case-study runtime smoke checks passed at a 390px viewport. Full visual QA and Contact destination details remain outstanding.
 
 ## 1. Product vision
 Create an original, premium personal portfolio for Charles, a web developer/software engineer with systems architecture, backend, DevOps, and project-delivery experience. The experience should feel like a carefully art-directed digital studio site rather than a conventional template: cinematic scroll storytelling, expressive large typography, restrained blur/glass surfaces, refined transitions, generous whitespace, excellent imagery, and smooth interaction.
@@ -308,3 +308,13 @@ Add an entry only after a meaningful, confirmed change:
 - Visual QA: Route rendering and mobile overflow checked; detailed desktop/mobile visual review remains pending.
 - Known issues: Contact still has placeholder email and social links that require Charles's real destinations before the portfolio is presented as finished. The workspace still has no Git repository or remote. GitHub repository creation and push are pending visibility choice and GitHub authentication. The zero-byte interaction files and unwired animation foundation remain outside this upload-preparation change.
 - Decisions and next stage: Do not invent contact information. Confirm repository visibility before creating it, then initialize Git, review staged contents for secrets/build artifacts, and push the approved baseline. No repository was created and no commit or push was performed in this milestone.
+
+### 2026-10-13 — Public GitHub baseline published
+- Objective: Create and publish the approved initial portfolio repository.
+- Files inspected: All staged project files, asset paths, `.gitignore`, and the remote repository after creation.
+- Files modified: `PROJECT_CONTEXT.md` (this publication record).
+- Implementation: Created the public repository [charles-portfolio](https://github.com/ST10296198/charles-portfolio) and pushed `main`. The initial baseline contains 72 files; generated `dist/` output and `node_modules/` were excluded. The staged-text credential-pattern scan found no matches, and no `.env` files were included.
+- Verification: GitHub reports repository visibility `PUBLIC`; remote `main` matched local commit `123a66f04f7331454414230cfd6fd4a6c72efc41`. The working tree was clean after the push. Build, lint, and route/image smoke-check results are recorded in the pre-upload milestone above.
+- Visual QA: Contact and Agri routes were loaded at 390px with no page errors or horizontal overflow; the Agri case-study images all loaded. Full visual inspection remains pending.
+- Known issues: The public Contact page still contains placeholder email/social links; replace them with the owner's intended destinations. The lint purity warning, chunk-size warning, empty interaction files, and animation wiring gaps remain.
+- Decisions and next stage: Treat the published repository as the initial baseline. Make further changes as separate commits; do not claim complete visual QA or a finished Contact page until their outstanding work is resolved.
