@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import SplitText from "../components/SplitText";
 import MagneticButton from "../components/MagneticButton";
+import PortfolioImage from "../components/PortfolioImage";
 import { projects } from "../data/projects";
 
 export default function Work() {
@@ -27,8 +28,12 @@ export default function Work() {
             className={`work-card${index >= 2 ? " work-card--wide" : ""}`}
             aria-labelledby={`work-${project.id}-title`}>
             <div className="work-card__visual">
-              <img src={project.image} alt={`${project.title} project preview`}
-                loading={index < 2 ? "eager" : "lazy"} decoding="async" />
+              <PortfolioImage
+                src={project.image}
+                alt={`${project.title} project preview`}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : "auto"}
+              />
             </div>
             <div className="work-card__top">
               <span>{project.number} / {project.year}</span>

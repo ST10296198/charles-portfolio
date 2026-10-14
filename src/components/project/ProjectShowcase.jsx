@@ -1,5 +1,6 @@
 import React, { useLayoutEffect, useRef } from "react";
 import SplitText from "../SplitText";
+import PortfolioImage from "../PortfolioImage";
 
 const ProjectShowcase = ({
   number,
@@ -45,7 +46,7 @@ const ProjectShowcase = ({
         <div className="showcase-body">
           <div className="showcase-visual">
             <div className="showcase-image image-reveal" data-parallax="8">
-              <img src={image} alt={imageAlt} />
+              <PortfolioImage src={image} alt={imageAlt} loading="lazy" fetchPriority="low" />
             </div>
             {caption && <p className="showcase-caption">{caption}</p>}
           </div>

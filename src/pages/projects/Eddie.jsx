@@ -8,12 +8,12 @@ import ProjectDetails from "../../components/project/ProjectDetails";
 import TechStory from "../../components/project/TechStory";
 import NextProject from "../../components/project/NextProject";
 
-const eddieHero = "/images/eddie/eddie-hero.png";
-const eddieHome = "/images/eddie/eddie-home.png";
-const eddieMobile = "/images/eddie/eddie-mobile.png";
-const eddieDetail = "/images/eddie/eddie-detail.png";
+const eddieHero = "/images/eddie/eddie-hero.webp";
+const eddieHome = "/images/eddie/eddie-home.webp";
+const eddieMobile = "/images/eddie/eddie-mobile.webp";
+const eddieDetail = "/images/eddie/eddie-detail.webp";
 
-const agriHero = "/images/agri/agri-hero.png";
+const agriHero = "/images/agri/agri-hero.webp";
 
 import "../../styles/project.css";
 

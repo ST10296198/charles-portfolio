@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import PortfolioImage from "./PortfolioImage";
 
 export default function ProjectCard({
   project,
@@ -30,7 +31,7 @@ export default function ProjectCard({
       }}
     >
       <div className="orbit-card__image">
-        <img src={project.image} alt={project.title} />
+        <PortfolioImage src={project.image} alt={project.title} loading="lazy" />
       </div>
 
       <span className="orbit-card__label">

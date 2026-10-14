@@ -1,4 +1,5 @@
 import React from "react";
+import PortfolioImage from "../PortfolioImage";
 
 const ProjectHero = ({
   number,
@@ -54,7 +55,7 @@ const ProjectHero = ({
       </div>
 
       <div className="case-hero__visual image-reveal" data-parallax="6">
-        <img src={image} alt={imageAlt} />
+        <PortfolioImage src={image} alt={imageAlt} loading="eager" fetchPriority="high" />
       </div>
     </section>
   );

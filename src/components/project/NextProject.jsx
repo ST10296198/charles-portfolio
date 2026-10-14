@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PortfolioImage from "../PortfolioImage";
 
 const NextProject = ({
   label = "Next Project",
@@ -11,11 +12,13 @@ const NextProject = ({
     <section className="next-project">
       <Link to={path} className="next-project__link">
 
-        <div
+        <PortfolioImage
           className="next-project__background"
-          style={{
-            backgroundImage: `url(${image})`,
-          }}
+          src={image}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          fetchPriority="low"
         />
 
         <div className="next-project__overlay" />

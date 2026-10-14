@@ -7,12 +7,12 @@ import ProjectDetails from "../../components/project/ProjectDetails";
 import TechStory from "../../components/project/TechStory";
 import NextProject from "../../components/project/NextProject";
 
-const tciHero = "/images/tci/tci-hero.png";
-const tciHome = "/images/tci/tci-home.png";
-const tciMobile = "/images/tci/tci-mobile.png";
-const tciDetail = "/images/tci/tci-detail.png";
+const tciHero = "/images/tci/tci-hero.webp";
+const tciHome = "/images/tci/tci-home.webp";
+const tciMobile = "/images/tci/tci-mobile.webp";
+const tciDetail = "/images/tci/tci-detail.webp";
 
-const bccHero = "/images/bcc/bcc-hero.png";
+const bccHero = "/images/bcc/bcc-hero.webp";
 
 import "../../styles/project.css";
 

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue, useSpring } from "framer-motion";
+import PortfolioImage from "./PortfolioImage";
 
 const physics = { stiffness: 150, damping: 24, mass: 0.8 };
 
@@ -72,7 +73,14 @@ export default function ProfileCard({ src, alt }) {
       onPointerMove={followPointer} onPointerLeave={reset} onPointerCancel={reset}>
       <motion.div className="profile-portrait__card" style={{ rotateX, rotateY }}>
         <div className="profile-portrait__image">
-          <img src={src} alt={alt} width="853" height="1280" decoding="async" />
+          <PortfolioImage
+            src={src}
+            alt={alt}
+            width="853"
+            height="1280"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
         <div className="profile-portrait__finish" aria-hidden="true" />
         <motion.div className="profile-portrait__foil" aria-hidden="true"

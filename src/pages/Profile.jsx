@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SplitText from "../components/SplitText";
 import MagneticButton from "../components/MagneticButton";
+import PortfolioImage from "../components/PortfolioImage";
 import ProfileCard from "../components/ProfileCard";
 import { projects } from "../data/projects";
 
@@ -102,7 +103,7 @@ export default function Profile() {
           {featured.map((project) => (
             <Link key={project.id} to={project.path} className={"profile-project profile-project--" + project.id}>
               <figure>
-                <img src={project.image} alt={project.title} loading="lazy" />
+                <PortfolioImage src={project.image} alt={project.title} loading="lazy" />
                 <figcaption><span>{project.number} / {project.discipline}</span><h3>{project.title} ↗</h3><p>{project.statement}</p></figcaption>
               </figure>
             </Link>

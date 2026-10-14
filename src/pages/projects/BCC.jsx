@@ -7,12 +7,12 @@ import ProjectDetails from "../../components/project/ProjectDetails";
 import TechStory from "../../components/project/TechStory";
 import NextProject from "../../components/project/NextProject";
 
-const bccHero = "/images/bcc/bcc-hero.png";
-const bccHome = "/images/bcc/bcc-home.png";
-const bccMobile = "/images/bcc/bcc-mobile.png";
-const bccDetail = "/images/bcc/bcc-detail.png";
+const bccHero = "/images/bcc/bcc-hero.webp";
+const bccHome = "/images/bcc/bcc-home.webp";
+const bccMobile = "/images/bcc/bcc-mobile.webp";
+const bccDetail = "/images/bcc/bcc-detail.webp";
 
-const eddieHero = "/images/eddie/eddie-hero.png";
+const eddieHero = "/images/eddie/eddie-hero.webp";
 
 import "../../styles/project.css";
 

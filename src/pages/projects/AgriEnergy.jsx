@@ -8,12 +8,12 @@ import ProjectDetails from "../../components/project/ProjectDetails";
 import TechStory from "../../components/project/TechStory";
 import NextProject from "../../components/project/NextProject";
 
-const agriHero = "/images/agri/agri-hero.png";
-const agriHome = "/images/agri/agri-home.png";
-const agriMobile = "/images/agri/agri-mobile.png";
-const agriDetail = "/images/agri/.agri-detail.png";
+const agriHero = "/images/agri/agri-hero.webp";
+const agriHome = "/images/agri/agri-home.webp";
+const agriMobile = "/images/agri/agri-mobile.webp";
+const agriDetail = "/images/agri/agri-detail.webp";
 
-const tciHero = "/images/tci/tci-hero.png";
+const tciHero = "/images/tci/tci-hero.webp";
 
 import "../../styles/project.css";
 
