@@ -85,7 +85,7 @@ export default function Navbar() {
     <header ref={navRef} className="navbar" data-surface={pathname === "/code" ? "dark" : "light"}>
     <div className="nav-identity">
       <MagneticButton to="/" className="brand" ariaLabel="Charles — Home">
-        C.<span className="brand-home">Home</span>
+        C.
       </MagneticButton>
     </div>
 

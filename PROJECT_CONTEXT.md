@@ -562,3 +562,7 @@ Add an entry only after a meaningful, confirmed change:
 - Final checks: Production build and lint exit0 with existing bundle-size (624.93kB JS/205.94kB gzip) and Footer Date purity warnings; git diff --check passes. Contact uses the corrected officcharles@gmail.com, supplied social profiles and WhatsApp number. Desktop/mobile/WebGL visual checks remain pending as recorded per milestone; publication is not a claim of visual verification.
 - Remote: origin https://github.com/ST10296198/charles-portfolio.git; main verified at beb17907c4c347a20debbb0b4da64a8fce226780, matching local HEAD before this publication commit.
 - Publication: Commit/push now authorized; final commit identifier and confirmed push outcome will be reported in the completion response. GitHub source publication does not establish an external hosting deployment.
+
+### 2026-10-14 — Navbar left brand simplification
+- User requested only C. on the left side of the main navbar. Removed the brand-home span from src/components/Navbar.jsx; retained the homepage destination and accessible Charles/Home name. Main navigation Home item, project Home control, styling and animations unchanged.
+- Updated PROJECT_CONTEXT.md. Build, lint and git diff --check pass with existing bundle-size/Footer warnings. Browser visual QA pending. Local change only; no new commit/push.
