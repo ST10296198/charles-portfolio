@@ -1,12 +1,13 @@
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 import { useLayoutEffect, useRef } from "react";
 import { initHomeAnimations } from "../animations/homeAnimations";
 
-import Navbar from "../components/Navbar";
+
 import ProjectOrbit from "../components/ProjectOrbit";
 import RevealText from "../components/RevealText";
+import SplitText from "../components/SplitText";
 import MagneticButton from "../components/MagneticButton";
 import Footer from "../components/Footer";
 
@@ -33,7 +34,7 @@ useLayoutEffect(() => {
 
   return (
     <main className="home"  ref={pageRef}>
-      <Navbar />
+
 
       {/* =========================
           HERO
@@ -83,13 +84,6 @@ useLayoutEffect(() => {
               thoughtful interfaces with real engineering.
             </p>
 
-            <a href="#introduction" className="scroll-indicator">
-              <span>Explore</span>
-
-              <span className="scroll-indicator__circle">
-                <ArrowDown size={17} />
-              </span>
-            </a>
           </div>
         </motion.div>
       </section>
@@ -99,7 +93,7 @@ useLayoutEffect(() => {
       ========================== */}
 
       <section className="introduction" id="introduction">
-        <div className="section-number">
+        <div className="section-number" data-home-reveal>
           01 / INTRODUCTION
         </div>
 
@@ -135,20 +129,20 @@ useLayoutEffect(() => {
       ========================== */}
 
       <section className="capabilities-preview">
-        <div className="section-number">
+        <div className="section-number" data-home-reveal>
           02 / CAPABILITIES
         </div>
 
         <div className="capability-header">
-          <RevealText>
-            <h2>
+          <div className="reveal-mask">
+            <SplitText>
               NOT JUST
               <br />
               THE INTERFACE.
-            </h2>
-          </RevealText>
+            </SplitText>
+          </div>
 
-          <p>
+          <p data-home-reveal>
             I work across the layers that turn an interface into
             an actual product.
           </p>
@@ -156,7 +150,7 @@ useLayoutEffect(() => {
 
         <div className="capability-list">
 
-          <a href="/code" className="capability-row">
+          <a href="/code" className="capability-row" data-home-reveal="0">
             <span className="capability-number">01</span>
 
             <h3>Frontend Development</h3>
@@ -168,7 +162,7 @@ useLayoutEffect(() => {
             <ArrowUpRight />
           </a>
 
-          <a href="/code" className="capability-row">
+          <a href="/code" className="capability-row" data-home-reveal="1">
             <span className="capability-number">02</span>
 
             <h3>Software Engineering</h3>
@@ -180,7 +174,7 @@ useLayoutEffect(() => {
             <ArrowUpRight />
           </a>
 
-          <a href="/code" className="capability-row">
+          <a href="/code" className="capability-row" data-home-reveal="2">
             <span className="capability-number">03</span>
 
             <h3>Data & Architecture</h3>
@@ -192,7 +186,7 @@ useLayoutEffect(() => {
             <ArrowUpRight />
           </a>
 
-          <a href="/profile" className="capability-row">
+          <a href="/profile" className="capability-row" data-home-reveal="3">
             <span className="capability-number">04</span>
 
             <h3>Project Delivery</h3>
@@ -215,19 +209,19 @@ useLayoutEffect(() => {
 
         <div className="code-copy">
 
-          <span className="section-number">
+          <span className="section-number" data-home-reveal>
             03 / UNDER THE SURFACE
           </span>
 
-          <RevealText>
-            <h2>
+          <div className="reveal-mask">
+            <SplitText>
               DESIGN IS ONLY
               <br />
               HALF THE STORY.
-            </h2>
-          </RevealText>
+            </SplitText>
+          </div>
 
-          <p>
+          <p data-home-reveal>
             Behind the visual layer are APIs, databases,
             authentication, cloud services and application
             architecture.
@@ -243,7 +237,7 @@ useLayoutEffect(() => {
 
         </div>
 
-        <div className="code-window">
+        <div className="code-window" data-home-reveal="1">
 
           <div className="code-window__top">
             <div className="code-dots">
@@ -295,7 +289,7 @@ useLayoutEffect(() => {
 
       <section className="home-contact">
 
-        <span className="section-number">
+        <span className="section-number" data-home-reveal>
           04 / NEXT
         </span>
 

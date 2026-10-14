@@ -6,75 +6,38 @@ gsap.registerPlugin(ScrollTrigger);
 export function initHomeAnimations(container) {
   if (!container) return () => {};
 
-  const reducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches;
-
-  if (reducedMotion) return () => {};
-
   const ctx = gsap.context(() => {
-    // Section reveals
-    gsap.utils.toArray(".reveal").forEach((element) => {
-      gsap.fromTo(
-        element,
-        { opacity: 0, y: 45 },
-        {
+    const revealed = new WeakSet();
+    // MatchMedia is collected by this context, including its responsive cleanup.
+    gsap.matchMedia().add({
+      desktop: "(min-width: 1200px)",
+      tablet: "(min-width: 651px) and (max-width: 1199px)",
+      mobile: "(max-width: 650px)",
+      reducedMotion: "(prefers-reduced-motion: reduce)",
+    }, ({ conditions }) => {
+      if (conditions.reducedMotion) return;
+      const distance = conditions.mobile ? 12 : conditions.tablet ? 20 : 28;
+
+      // Explicit opt-in only: no hero, RevealText, orbit or magnetic targets.
+      gsap.utils.toArray("[data-home-reveal]").forEach((element) => {
+        if (revealed.has(element)) return;
+        const order = Number(element.dataset.homeReveal) || 0;
+        gsap.fromTo(element, { opacity: 0, y: distance }, {
           opacity: 1,
           y: 0,
-          duration: 1,
+          duration: conditions.mobile ? 0.55 : 0.85,
+          delay: Math.min(order, 3) * (conditions.mobile ? 0.025 : 0.06),
           ease: "power3.out",
+          clearProps: "opacity,transform",
+          onComplete: () => revealed.add(element),
           scrollTrigger: {
             trigger: element,
-            start: "top 88%",
+            start: "top 90%",
             once: true,
           },
-        }
-      );
-    });
-
-    // Homepage image scaling
-    gsap.utils
-      .toArray(".image-reveal")
-      .forEach((wrapper) => {
-        const image = wrapper.querySelector("img");
-
-        if (!image) return;
-
-        gsap.fromTo(
-          image,
-          { scale: 1.12 },
-          {
-            scale: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: wrapper,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            },
-          }
-        );
+        });
       });
-
-    // Optional parallax
-    gsap.utils
-      .toArray("[data-parallax]")
-      .forEach((element) => {
-        gsap.fromTo(
-          element,
-          { y: -40 },
-          {
-            y: 40,
-            ease: "none",
-            scrollTrigger: {
-              trigger: element,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
-      });
+    }, container);
   }, container);
 
   return () => ctx.revert();

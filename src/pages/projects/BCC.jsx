@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import { initProjectAnimations } from "../../animations/projectAnimations";
 
 import ProjectHero from "../../components/project/ProjectHero";
 import ProjectShowcase from "../../components/project/ProjectShowcase";
@@ -16,8 +17,11 @@ const eddieHero = "/images/eddie/eddie-hero.png";
 import "../../styles/project.css";
 
 const BCC = () => {
+  const pageRef = useRef(null);
+  useLayoutEffect(() => initProjectAnimations(pageRef.current), []);
+
   return (
-    <main className="project-page project-bcc">
+    <main className="project-page project-bcc" ref={pageRef}>
 
       <ProjectHero
         number="02 / 04"
@@ -37,6 +41,7 @@ const BCC = () => {
       />
 
       <ProjectShowcase
+        sticky
         number="01"
         eyebrow="Commercial Experience"
         title="Complex services. Clear interface."

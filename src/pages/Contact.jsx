@@ -1,16 +1,14 @@
 import { ArrowUpRight } from "lucide-react";
 
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
 import RevealText from "../components/RevealText";
 import MagneticButton from "../components/MagneticButton";
 
 export default function Contact() {
   return (
-    <PageTransition>
       <main className="contact-page">
-        <Navbar />
+
 
         <section className="contact-hero">
           <span className="section-number">
@@ -65,6 +63,5 @@ export default function Contact() {
 
         <Footer />
       </main>
-    </PageTransition>
   );
 }

@@ -1,5 +1,9 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
+import SmoothScroll, { ScrollRoute } from "./components/SmoothScroll";
+import CustomCursor from "./components/CustomCursor";
+import PageTransition from "./components/PageTransition";
+import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
 import Work from "./pages/Work";
@@ -23,10 +27,16 @@ import "./styles/contact.css";
 
 function App() {
   const location = useLocation();
+  const navigationType = useNavigationType();
 
   return (
+    <SmoothScroll>
+    <CustomCursor />
+    <Navbar />
     <AnimatePresence mode="wait">
-<Routes location={location} key={location.pathname}>
+    <ScrollRoute key={location.pathname} location={location} navigationType={navigationType}>
+    <PageTransition location={location}>
+<Routes location={location}>
 
   {/* Main Pages */}
   <Route path="/" element={<Home />} />
@@ -54,7 +64,10 @@ function App() {
   />
 
 </Routes>
+    </PageTransition>
+    </ScrollRoute>
     </AnimatePresence>
+    </SmoothScroll>
   );
 }
 

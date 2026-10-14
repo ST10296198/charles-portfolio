@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
 import { projects } from "../data/projects";
@@ -10,16 +10,18 @@ const positions = ["top", "right", "bottom", "left"];
 export default function ProjectOrbit() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [focusWithin, setFocusWithin] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || focusWithin || reducedMotion) return;
 
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % projects.length);
     }, 4200);
 
     return () => clearInterval(interval);
-  }, [paused]);
+  }, [paused, focusWithin, reducedMotion]);
 
   const activeProject = projects[activeIndex];
 
@@ -40,6 +42,8 @@ export default function ProjectOrbit() {
       id="work"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setFocusWithin(true)}
+      onBlurCapture={(event) => setFocusWithin(event.currentTarget.contains(event.relatedTarget))}
     >
       <div className="orbit-heading">
         <span>SELECTED</span>
@@ -64,7 +68,7 @@ export default function ProjectOrbit() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeProject.id}
-              initial={{
+              initial={reducedMotion ? false : {
                 opacity: 0,
                 y: 30,
                 filter: "blur(10px)",
@@ -74,13 +78,13 @@ export default function ProjectOrbit() {
                 y: 0,
                 filter: "blur(0px)",
               }}
-              exit={{
+              exit={reducedMotion ? { opacity: 1, y: 0, filter: "blur(0px)" } : {
                 opacity: 0,
                 y: -20,
                 filter: "blur(8px)",
               }}
               transition={{
-                duration: 0.65,
+                duration: reducedMotion ? 0 : 0.65,
                 ease: [0.16, 1, 0.3, 1],
               }}
               className="orbit-project-info"
@@ -123,6 +127,8 @@ export default function ProjectOrbit() {
             key={project.id}
             onClick={() => setActiveIndex(index)}
             className={index === activeIndex ? "active" : ""}
+            aria-label={`Select ${project.title}`}
+            aria-pressed={index === activeIndex}
           >
             {project.number}
           </button>

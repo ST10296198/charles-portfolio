@@ -53,7 +53,7 @@ const ProjectHero = ({
 
       </div>
 
-      <div className="case-hero__visual image-reveal">
+      <div className="case-hero__visual image-reveal" data-parallax="6">
         <img src={image} alt={imageAlt} />
       </div>
     </section>

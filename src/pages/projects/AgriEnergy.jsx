@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import { initProjectAnimations } from "../../animations/projectAnimations";
+import ArchitectureDiagram from "../../components/ArchitectureDiagram";
 
 import ProjectHero from "../../components/project/ProjectHero";
 import ProjectShowcase from "../../components/project/ProjectShowcase";
@@ -15,9 +17,28 @@ const tciHero = "/images/tci/tci-hero.png";
 
 import "../../styles/project.css";
 
+const architectureNodes = [
+  { id: "farmer", label: "Farmer", description: "User Role", column: 1, row: 1 },
+  { id: "employee", label: "Employee", description: "Management Role", column: 1, row: 2 },
+  { id: "application", label: "ASP.NET Core MVC", description: "Application / Business Logic", column: 2, row: "1 / span 2" },
+  { id: "identity", label: "Identity", description: "Authentication + Authorization", column: 3, row: 1 },
+  { id: "products", label: "Products", description: "Crop & Stock Data", column: 3, row: 2 },
+  { id: "sql", label: "SQL", description: "Relational Database", column: 4, row: 2 },
+];
+const architectureConnections = [
+  { id: "farmer-application", from: "farmer", to: "application", label: "Farmer product management" },
+  { id: "employee-application", from: "employee", to: "application", label: "Employee management" },
+  { id: "application-identity", from: "application", to: "identity", label: "Authentication and role-based access" },
+  { id: "application-products", from: "application", to: "products", label: "Product management and filtering" },
+  { id: "products-sql", from: "products", to: "sql", label: "SQL Server relational records" },
+];
+
 const AgriEnergy = () => {
+  const pageRef = useRef(null);
+  useLayoutEffect(() => initProjectAnimations(pageRef.current), []);
+
   return (
-    <main className="project-page project-agri">
+    <main className="project-page project-agri" ref={pageRef}>
 
       <ProjectHero
         number="04 / 04"
@@ -31,6 +52,7 @@ const AgriEnergy = () => {
       />
 
       <ProjectShowcase
+        sticky
         number="01"
         eyebrow="Product Vision"
         title="Movement in farming."
@@ -116,39 +138,8 @@ const AgriEnergy = () => {
             From farmer to database.
           </h2>
 
-          <div className="architecture-flow">
-
-            <div className="architecture-node reveal">
-              <span>01</span>
-              <strong>Farmer</strong>
-              <small>User Role</small>
-            </div>
-
-            <div className="architecture-line" />
-
-            <div className="architecture-node reveal">
-              <span>02</span>
-              <strong>Products</strong>
-              <small>Crop & Stock Data</small>
-            </div>
-
-            <div className="architecture-line" />
-
-            <div className="architecture-node reveal">
-              <span>03</span>
-              <strong>SQL</strong>
-              <small>Relational Database</small>
-            </div>
-
-            <div className="architecture-line" />
-
-            <div className="architecture-node reveal">
-              <span>04</span>
-              <strong>Employee</strong>
-              <small>Management Role</small>
-            </div>
-
-          </div>
+          <ArchitectureDiagram label="Agri-Energy roles, application and data architecture"
+            nodes={architectureNodes} connections={architectureConnections} columns={4} />
 
         </div>
       </section>

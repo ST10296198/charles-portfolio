@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import { initProjectAnimations } from "../../animations/projectAnimations";
 
 import ProjectHero from "../../components/project/ProjectHero";
 import ProjectShowcase from "../../components/project/ProjectShowcase";
@@ -16,8 +17,11 @@ const bccHero = "/images/bcc/bcc-hero.png";
 import "../../styles/project.css";
 
 const TCI = () => {
+  const pageRef = useRef(null);
+  useLayoutEffect(() => initProjectAnimations(pageRef.current), []);
+
   return (
-    <main className="project-page project-tci">
+    <main className="project-page project-tci project-editorial" ref={pageRef}>
 
       <ProjectHero
         number="01 / 04"
@@ -37,6 +41,7 @@ const TCI = () => {
       />
 
       <ProjectShowcase
+        sticky
         number="01"
         eyebrow="Digital Experience"
         title="A digital home built around identity."

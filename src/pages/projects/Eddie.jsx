@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import { initProjectAnimations } from "../../animations/projectAnimations";
+import ArchitectureDiagram from "../../components/ArchitectureDiagram";
 
 import ProjectHero from "../../components/project/ProjectHero";
 import ProjectShowcase from "../../components/project/ProjectShowcase";
@@ -15,9 +17,24 @@ const agriHero = "/images/agri/agri-hero.png";
 
 import "../../styles/project.css";
 
+const architectureNodes = [
+  { id: "student", label: "Student", description: "User Experience", column: 1, row: 1 },
+  { id: "eddie", label: "Eddie", description: "Android Application", column: 2, row: 1 },
+  { id: "firebase", label: "Firebase", description: "Authentication + Data", column: 3, row: 1 },
+  { id: "ai", label: "AI", description: "Intelligent Assistance", column: 3, row: 2 },
+];
+const architectureConnections = [
+  { id: "student-eddie", from: "student", to: "eddie", label: "Student workspace" },
+  { id: "eddie-firebase", from: "eddie", to: "firebase", label: "Authentication and cloud data" },
+  { id: "eddie-ai", from: "eddie", to: "ai", label: "AI assistance" },
+];
+
 const Eddie = () => {
+  const pageRef = useRef(null);
+  useLayoutEffect(() => initProjectAnimations(pageRef.current), []);
+
   return (
-    <main className="project-page project-eddie">
+    <main className="project-page project-eddie" ref={pageRef}>
 
       <ProjectHero
         number="03 / 04"
@@ -89,6 +106,7 @@ const Eddie = () => {
       />
 
       <ProjectShowcase
+        sticky
         number="03"
         eyebrow="Product System"
         title="More than the screen."
@@ -124,39 +142,8 @@ const Eddie = () => {
             Behind the interface.
           </h2>
 
-          <div className="architecture-flow">
-
-            <div className="architecture-node reveal">
-              <span>01</span>
-              <strong>Student</strong>
-              <small>User Experience</small>
-            </div>
-
-            <div className="architecture-line" />
-
-            <div className="architecture-node reveal">
-              <span>02</span>
-              <strong>Eddie</strong>
-              <small>Android Application</small>
-            </div>
-
-            <div className="architecture-line" />
-
-            <div className="architecture-node reveal">
-              <span>03</span>
-              <strong>Firebase</strong>
-              <small>Authentication + Data</small>
-            </div>
-
-            <div className="architecture-line" />
-
-            <div className="architecture-node reveal">
-              <span>04</span>
-              <strong>AI</strong>
-              <small>Intelligent Assistance</small>
-            </div>
-
-          </div>
+          <ArchitectureDiagram label="Eddie Android application architecture"
+            nodes={architectureNodes} connections={architectureConnections} />
 
         </div>
       </section>

@@ -1,8 +1,7 @@
 import { motion } from "framer-motion";
 
-import Navbar from "../components/Navbar";
+
 import Footer from "../components/Footer";
-import PageTransition from "../components/PageTransition";
 import RevealText from "../components/RevealText";
 
 const groups = [
@@ -58,9 +57,8 @@ const groups = [
 
 export default function Code() {
   return (
-    <PageTransition>
       <main className="code-page">
-        <Navbar />
+
 
         <section className="code-page-hero">
           <span className="section-number">
@@ -135,6 +133,5 @@ export default function Code() {
 
         <Footer />
       </main>
-    </PageTransition>
   );
 }

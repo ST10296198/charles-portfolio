@@ -214,7 +214,7 @@
 
 }
 
-.case-link:hover {
+.case-link:is(:hover, :focus-visible) {
 
   transform: translateY(-3px);
 
@@ -269,7 +269,6 @@
   width: 100%;
   height: auto;
   transform-origin: center center;
-  will-change: transform;
 }
 
 .case-hero__visual:hover {
@@ -399,7 +398,6 @@
   width: 100%;
   height: auto;
   transform-origin: center center;
-  will-change: transform;
 }
 
 .showcase-image:hover {
@@ -441,6 +439,63 @@
 *   STORY POINTS*
 
 *   ========================= */
+
+/* Shared editorial composition; the narrative provides natural sticky release. */
+.showcase-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.showcase-visual {
+  display: block;
+  min-width: 0;
+  align-self: start;
+}
+
+.showcase-narrative {
+  min-width: 0;
+}
+
+/* All four opted-in sections retain CSS sticky with viewport and fit safeguards. */
+@supports (overflow: clip) {
+  @media (min-width: 1024px) and (min-height: 700px) and (prefers-reduced-motion: no-preference) {
+    .project-page:has(.showcase-section--sticky) {
+      /* Clip without creating the hidden scrolling ancestor that blocks sticky. */
+      overflow: clip;
+    }
+
+    .showcase-section--sticky .showcase-body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: clamp(32px, 5vw, 72px);
+      align-items: start;
+    }
+
+    .showcase-section--sticky .showcase-visual {
+      display: block;
+      min-width: 0;
+      align-self: start;
+    }
+
+    .showcase-section--sticky .showcase-visual[data-sticky-fit="true"] {
+      position: sticky;
+      top: 112px;
+    }
+
+    .showcase-section--sticky .story-points {
+      display: block;
+      min-width: 0;
+      margin-top: 0;
+    }
+
+    .showcase-section--sticky .story-point {
+      padding-inline: 0;
+      border-right: 0;
+    }
+  }
+}
 
 .story-points {
 
@@ -688,8 +743,6 @@
 
   transition:
 
-    transform 0.35s ease,
-
     padding 0.35s ease;
 
 }
@@ -872,6 +925,147 @@
 
 }
 
+/* Shared diagrams: CSS owns emphasis; GSAP owns wrapper entrances and line draws. */
+.architecture-diagram {
+  --architecture-accent: var(--green);
+  margin: 0;
+}
+
+.architecture-diagram__canvas {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--architecture-columns), minmax(0, 1fr));
+  gap: 48px;
+  padding: 12px 28px;
+}
+
+.architecture-diagram__node {
+  position: relative;
+  grid-column: var(--architecture-column);
+  grid-row: var(--architecture-row);
+  min-width: 0;
+  align-self: center;
+  z-index: 1;
+}
+
+.architecture-diagram .architecture-node {
+  width: 100%;
+  min-height: 210px;
+  gap: 24px;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transform: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.architecture-diagram .architecture-node:hover,
+.architecture-diagram .architecture-node.is-active {
+  transform: none;
+  border-color: var(--architecture-accent);
+  background: rgba(72, 184, 121, 0.08);
+  box-shadow: 0 0 24px rgba(72, 184, 121, 0.1);
+}
+
+.architecture-diagram .architecture-node:focus-visible {
+  outline: 2px solid var(--architecture-accent);
+  outline-offset: 5px;
+}
+
+.architecture-diagram .architecture-node strong,
+.architecture-diagram .architecture-node small {
+  overflow-wrap: anywhere;
+}
+
+.architecture-diagram__connections {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--architecture-accent);
+  pointer-events: none;
+  overflow: visible;
+}
+
+.architecture-diagram__connection {
+  fill: none;
+  stroke: rgba(72, 184, 121, 0.4);
+  stroke-width: 1.25;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.25s ease, stroke-width 0.25s ease;
+}
+
+.architecture-diagram__connection.is-active {
+  stroke: var(--architecture-accent);
+  stroke-width: 2;
+}
+
+.architecture-diagram__legend {
+  margin-top: 36px;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.architecture-diagram__legend ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 32px;
+  list-style: none;
+  margin-top: 24px;
+}
+
+.architecture-diagram__legend li strong,
+.architecture-diagram__legend li span {
+  display: block;
+}
+
+.architecture-diagram__legend li.is-active strong {
+  color: var(--architecture-accent);
+}
+
+@media (max-width: 1199px) {
+  .architecture-diagram__canvas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+  }
+
+  .architecture-diagram__node {
+    grid-column: auto;
+    grid-row: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .architecture-diagram__canvas,
+  .architecture-diagram__legend ul {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .architecture-diagram .architecture-node {
+    min-height: 170px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .architecture-diagram__node,
+  .architecture-node__description {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .architecture-diagram__connection {
+    stroke-dashoffset: 0 !important;
+  }
+
+  .architecture-diagram .architecture-node,
+  .architecture-diagram__connection {
+    transition: none;
+  }
+}
+
 /* =========================*
 
 *   NEXT PROJECT*
@@ -1010,7 +1204,7 @@
 
 }
 
-.next-project__link:hover .next-project__background {
+.next-project__link:is(:hover, :focus-visible) .next-project__background {
 
   transform: scale(1.045);
 
@@ -1018,7 +1212,7 @@
 
 }
 
-.next-project__link:hover .next-project__arrow {
+.next-project__link:is(:hover, :focus-visible) .next-project__arrow {
 
   transform: rotate(45deg);
 
@@ -1030,7 +1224,7 @@
 
 /* =========================
   GSAP ANIMATION FOUNDATION
-  GSAP owns transforms and opacity on .reveal,
+  GSAP owns transforms and opacity on editorial .reveal elements,
   and transforms on images inside .image-reveal.
   Keep content visible before JS runs.
   ========================= */
@@ -1055,7 +1249,6 @@
 
 .image-reveal img {
   transform-origin: center center;
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1073,6 +1266,18 @@
   .case-hero__visual img,
   .showcase-image img {
     will-change: auto;
+  }
+
+  .case-link,
+  .next-project__background,
+  .next-project__arrow {
+    transition: none;
+  }
+
+  .case-link:is(:hover, :focus-visible),
+  .next-project__link:is(:hover, :focus-visible) .next-project__background,
+  .next-project__link:is(:hover, :focus-visible) .next-project__arrow {
+    transform: none;
   }
 }
 
@@ -1300,4 +1505,148 @@
 
   }
 
+}
+
+/* Phase 8: contained visuals and a consistent editorial reading column. */
+.showcase-section { padding: clamp(72px, 9vw, 132px) 0; }
+.showcase-header {
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.showcase-copy { max-width: 38rem; }
+.showcase-section--right .showcase-copy { margin-left: 0; }
+.showcase-copy h2 { font-size: clamp(2rem, 3.4vw, 3.75rem); line-height: 1.06; }
+.showcase-copy > p { max-width: 36rem; margin-top: 24px; font-size: 1rem; line-height: 1.75; }
+.showcase-image {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border: 1px solid var(--project-line);
+  border-radius: 24px;
+  box-shadow: 0 16px 48px rgba(24, 29, 45, 0.08);
+}
+.showcase-image:hover { box-shadow: 0 20px 56px rgba(24, 29, 45, 0.12); }
+.showcase-image img {
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: min(560px, calc(100svh - 220px));
+  object-fit: contain;
+}
+.showcase-caption {
+  position: static;
+  display: block;
+  margin: 16px 0 0;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
+  color: var(--project-muted);
+  font-size: 0.65rem;
+  line-height: 1.6;
+}
+.showcase-section--dark .showcase-caption,
+.showcase-section--dark .showcase-number { color: rgba(255,255,255,0.65); }
+.showcase-section--dark .showcase-image { border-color: rgba(255,255,255,0.15); }
+.showcase-narrative .story-points { display: block; margin-top: 0; }
+.showcase-narrative .story-point { min-height: auto; padding: 28px 0; border-right: 0; }
+.showcase-narrative .story-point > span { margin-bottom: 14px; }
+.showcase-narrative .story-point p { max-width: 36rem; }
+.case-hero__heading h1 { font-size: clamp(3.25rem, 7.5vw, 7rem); line-height: 0.98; }
+.case-hero__subtitle { max-width: 36rem; font-size: clamp(1.25rem, 2vw, 1.65rem); }
+.case-hero__visual {
+  width: fit-content;
+  max-width: min(calc(100% - 80px), 1100px);
+  padding: 20px;
+  border-radius: 28px;
+  background: var(--project-bg);
+  border: 1px solid var(--project-line);
+}
+.case-hero__visual img { width: auto; max-width: 100%; height: auto; max-height: min(640px, 70svh); object-fit: contain; }
+.details-intro h2,
+.tech-story__heading h2 { font-size: clamp(2.25rem, 4.5vw, 4.5rem); line-height: 1.08; }
+
+@media (max-width: 1000px) {
+  .showcase-body { grid-template-columns: 1fr; gap: 36px; }
+  .showcase-visual { max-width: 680px; width: 100%; }
+  .showcase-image img { max-height: 560px; }
+  .case-hero__visual { max-width: calc(100% - 40px); }
+}
+@media (max-width: 650px) {
+  .case-hero__heading h1 { font-size: clamp(2.5rem, 12vw, 4rem); }
+  .case-hero__visual { max-width: calc(100% - 28px); padding: 12px; border-radius: 20px; }
+  .showcase-image { padding: 12px; border-radius: 20px; }
+  .showcase-copy h2 { font-size: clamp(2rem, 8.5vw, 2.8rem); }
+  .showcase-header { margin-bottom: 26px; }
+}
+
+/* Phase 10 editorial system: opt-in TCI pilot; other case studies retain Phase 8. */
+.project-editorial .case-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: center;
+  gap: clamp(32px, 5vw, 72px);
+  width: min(calc(100% - 80px), var(--container));
+  margin-inline: auto;
+  padding-top: 150px;
+  padding-bottom: 72px;
+}
+.project-editorial .case-hero > .case-container { width: 100%; min-width: 0; }
+.project-editorial .case-hero__meta { flex-wrap: wrap; border: 0; font-size: 0.65rem; gap: 12px; padding-bottom: 0; }
+.project-editorial .case-hero__heading { padding: 40px 0 28px; }
+.project-editorial .case-hero__heading h1 { font-size: clamp(3rem, 5.9vw, 6rem); line-height: 1.02; }
+.project-editorial .case-hero__subtitle { max-width: 24ch; margin-top: 28px; font-size: clamp(1.2rem, 1.8vw, 1.6rem); }
+.project-editorial .case-hero__bottom { grid-template-columns: 1fr; align-items: start; gap: 28px; padding-bottom: 0; }
+.project-editorial .case-hero__bottom > p { max-width: 42ch; font-size: 0.98rem; }
+.project-editorial .case-hero__visual {
+  width: 100%;
+  max-width: 100%;
+  padding: 20px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.project-editorial .case-hero__visual:hover { box-shadow: none; }
+.project-editorial .case-hero__visual img { max-height: min(480px, 62svh); margin-inline: auto; }
+.project-editorial .showcase-section { padding-block: clamp(80px, 10vw, 144px); }
+.project-editorial .showcase-image,
+.project-editorial .showcase-image:hover { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.project-editorial .showcase-image { padding: 20px; }
+.project-editorial .showcase-number { color: #a47b00; }
+.project-editorial .showcase-copy h2 { font-size: clamp(2.2rem, 3.6vw, 4rem); max-width: 17ch; }
+.project-editorial .showcase-caption { margin-top: 12px; letter-spacing: 0.1em; }
+.project-editorial .showcase-narrative .story-point { padding-block: 24px; }
+.project-editorial .showcase-section--soft { background: transparent; }
+.project-editorial .showcase-section--soft .showcase-body { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+.project-editorial .showcase-section--soft .showcase-visual { padding-top: 72px; max-width: 480px; justify-self: center; }
+.project-editorial .showcase-section--soft .showcase-image img { max-height: min(520px, 65svh); }
+.project-editorial .showcase-section--dark .showcase-body { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.project-editorial .showcase-section--dark .showcase-narrative { order: -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; }
+.project-editorial .showcase-section--dark .showcase-number { color: var(--gold); }
+.project-editorial .showcase-section--dark .showcase-visual { width: min(100%, 1080px); max-width: none; margin-inline: auto; }
+.project-editorial .showcase-section--dark .showcase-image img { max-height: 580px; }
+.project-editorial .project-details .case-container { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; }
+.project-editorial .details-intro h2 { max-width: 14ch; }
+.project-editorial .details-intro p { max-width: 36ch; }
+.project-editorial .detail-row { padding-inline: 0; }
+.project-editorial .tech-story { padding-block: 100px; }
+.project-editorial .tech-story__heading h2 { max-width: 20ch; }
+
+@media (max-width: 1000px) {
+  .project-editorial .case-hero { width: calc(100% - 40px); grid-template-columns: minmax(0, 1fr); gap: 40px; padding-top: 130px; }
+  .project-editorial .case-hero__visual { max-width: 580px; justify-self: end; }
+  .project-editorial .showcase-section--soft .showcase-body,
+  .project-editorial .showcase-section--dark .showcase-narrative,
+  .project-editorial .project-details .case-container { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .project-editorial .showcase-section--soft .showcase-visual { padding-top: 0; }
+}
+@media (max-width: 650px) {
+  .project-editorial .case-hero { width: calc(100% - 28px); padding-top: 120px; }
+  .project-editorial .case-hero__heading h1 { font-size: clamp(2.5rem, 12vw, 3.5rem); }
+  .project-editorial .case-hero__visual { width: 90%; padding: 12px; }
+  .project-editorial .showcase-image { padding: 12px; }
+  .project-editorial .showcase-copy h2 { font-size: clamp(2rem, 8.5vw, 2.8rem); }
+  .project-editorial .showcase-section--soft .showcase-visual { width: 85%; }
+  .project-editorial .showcase-section--soft .showcase-image img { max-height: 500px; }
 }
