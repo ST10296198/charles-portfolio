@@ -1,4 +1,7 @@
 import { motion } from "framer-motion";
+import BorderGlow from "../components/BorderGlow";
+import { useRef } from "react";
+import CodeLaserScene from "../components/CodeLaserScene";
 
 
 import Footer from "../components/Footer";
@@ -56,10 +59,12 @@ const groups = [
 ];
 
 export default function Code() {
+  const editorRef = useRef(null);
   return (
       <main className="code-page">
 
 
+        <CodeLaserScene surfaceRef={editorRef}>
         <section className="code-page-hero">
           <span className="section-number">
             CODE / SYSTEMS
@@ -81,7 +86,8 @@ export default function Code() {
         </section>
 
         <section className="terminal-section">
-          <div className="terminal-window">
+          <BorderGlow className="code-editor-glow">
+          <div className="terminal-window" ref={editorRef}>
             <div className="terminal-top">
               <span>portfolio / charles.js</span>
             </div>
@@ -108,7 +114,10 @@ export default function Code() {
 };`}
             </motion.pre>
           </div>
+          </BorderGlow>
         </section>
+
+        </CodeLaserScene>
 
         <section className="technology-groups">
           {groups.map((group) => (

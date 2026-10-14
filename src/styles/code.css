@@ -10,6 +10,53 @@
   color: white;
 }
 
+.code-laser-scene {
+  --laser-x: 68%;
+  --impact-y: calc(76svh + 40px);
+  position: relative;
+  isolation: isolate;
+}
+.code-laser-layer {
+  position: absolute;
+  top: 112px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh + 96px);
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.laser-flow { position: relative; width: 100%; height: 100%; pointer-events: none; }
+.laser-flow__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.laser-flow__fallback {
+  position: absolute;
+  left: var(--laser-x);
+  top: 0;
+  bottom: 128px;
+  width: 1px;
+  opacity: 0.3;
+  background: linear-gradient(transparent, #ff5a1f 60%, #ffd3a0);
+  box-shadow: 0 0 8px 2px rgba(255, 90, 31, 0.2);
+}
+.laser-flow[data-ready="true"] .laser-flow__fallback { display: none; }
+.laser-flow:not([data-ready="true"]) .laser-flow__canvas { visibility: hidden; }
+.code-laser-impact {
+  position: absolute;
+  left: var(--laser-x);
+  top: var(--impact-y);
+  width: min(260px, 45%);
+  height: 48px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(ellipse, rgba(255,145,67,0.32), rgba(255,90,31,0.12) 35%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.code-laser-scene > .code-page-hero,
+.code-laser-scene > .terminal-section { position: relative; z-index: 1; }
+/* Bring the impact into the opening composition without resizing the editor. */
+.code-laser-scene > .code-page-hero { min-height: 76svh; }
+.code-laser-scene > .terminal-section { padding-top: 40px; }
+
 .code-page-hero {
   min-height: 100vh;
 
@@ -64,6 +111,68 @@
 
   box-shadow:
     0 60px 140px rgba(0,0,0,.5);
+}
+
+/* The outer wrapper reserves no additional space around the existing editor. */
+.border-glow {
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-border-opacity: 0.28;
+  --glow-halo-opacity: 0.12;
+  --glow-radius: 35px;
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  border-radius: var(--glow-radius);
+}
+
+.code-editor-glow { max-width: 1100px; margin: auto; }
+.code-editor-glow > .terminal-window { position: relative; z-index: 1; }
+
+/* Without composite masks, retain the original editor border and a faint halo. */
+.border-glow__border,
+.border-glow__halo {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.border-glow__border { display: none; }
+.border-glow__halo {
+  box-shadow: 0 0 8px 1px rgba(104, 120, 232, 0.18);
+}
+
+@supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+  .border-glow__border,
+  .border-glow__halo {
+    display: block;
+    padding: 2px;
+    background:
+      radial-gradient(ellipse 160px 130px at var(--glow-x) var(--glow-y),
+        #eef3ff 0%, #85baff 18%, #6878e8 44%, transparent 80%),
+      linear-gradient(125deg, #6878e8, #7faaff 32%, #a098e8 68%, #6878e8);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .border-glow__border { opacity: var(--glow-border-opacity); }
+  .border-glow__halo {
+    opacity: var(--glow-halo-opacity);
+    filter: blur(6px);
+    box-shadow: none;
+  }
+}
+
+@media (pointer: coarse), (hover: none), (prefers-reduced-motion: reduce) {
+  .border-glow {
+    --glow-x: 50% !important;
+    --glow-y: 50% !important;
+    --glow-border-opacity: 0.28 !important;
+    --glow-halo-opacity: 0.12 !important;
+  }
 }
 
 .terminal-top {

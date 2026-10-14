@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SplitText from "../components/SplitText";
 import MagneticButton from "../components/MagneticButton";
+import ProfileCard from "../components/ProfileCard";
 import { projects } from "../data/projects";
 
 import Footer from "../components/Footer";
@@ -35,7 +36,6 @@ const capabilities = [
 
 export default function Profile() {
   const featured = projects.filter((project) => ["tci", "eddie"].includes(project.id));
-  const visual = projects.find((project) => project.id === "agri");
   return (
     <main className="profile-page">
       <section className="profile-hero" aria-label="Charles — developer, architect, builder">
@@ -46,13 +46,8 @@ export default function Profile() {
           </SplitText>
           <p className="profile-hero__note">Web development / Software engineering / System architecture</p>
         </div>
-        <figure className="profile-hero__visual">
-          <img src={visual.image} alt={visual.title + " — selected application work"} />
-          <figcaption>
-            <span>SELECTED APPLICATION / {visual.number}</span>
-            <Link to={visual.path}>{visual.title} ↗</Link>
-          </figcaption>
-        </figure>
+        <ProfileCard src="/images/profile/charles-portrait.jpeg"
+          alt="Charles wearing his graduation cap and gown outdoors" />
       </section>
 
       <section className="profile-introduction" aria-label="About Charles">

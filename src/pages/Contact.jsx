@@ -32,7 +32,8 @@ export default function Contact() {
             </p>
 
             <MagneticButton
-              href="mailto:YOUR-EMAIL-HERE"
+              href="https://wa.me/27837781744"
+              ariaLabel="Let's talk on WhatsApp at +27 83 778 1744"
               className="contact-main-button"
             >
               Let's talk
@@ -42,19 +43,19 @@ export default function Contact() {
         </section>
 
         <section className="contact-links">
-          <a href="#">
+          <a href="mailto:officcharles@gmail.com">
             <span>Email</span>
-            <strong>YOUR EMAIL</strong>
+            <strong>officcharles@gmail.com</strong>
             <ArrowUpRight />
           </a>
 
-          <a href="#">
+          <a href="https://www.linkedin.com/in/charles-office-78b443293">
             <span>LinkedIn</span>
             <strong>Connect</strong>
             <ArrowUpRight />
           </a>
 
-          <a href="#">
+          <a href="https://github.com/ST10296198">
             <span>GitHub</span>
             <strong>View Code</strong>
             <ArrowUpRight />
